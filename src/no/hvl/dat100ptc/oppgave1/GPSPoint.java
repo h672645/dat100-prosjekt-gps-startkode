@@ -1,5 +1,4 @@
 package no.hvl.dat100ptc.oppgave1;
-import static java.lang.Double.*;
 
 import no.hvl.dat100ptc.TODO;
 
