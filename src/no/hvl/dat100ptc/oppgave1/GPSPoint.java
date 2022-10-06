@@ -1,4 +1,5 @@
 package no.hvl.dat100ptc.oppgave1;
+import static java.lang.Double.*;
 
 import no.hvl.dat100ptc.TODO;
 
@@ -8,7 +9,7 @@ public class GPSPoint {
 		
 	public GPSPoint(int time, double latitude, double longitude, double elevation) {
 
-		// TODO - konstruktør
+		// TODO - konstruktører
 
 		// Fjern linjene med throw new etterhvert som metodene implementeres
 		throw new UnsupportedOperationException(TODO.construtor("GPSPoint"));
