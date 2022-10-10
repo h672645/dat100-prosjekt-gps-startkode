@@ -141,6 +141,7 @@ public class GPSComputer {
 		// MET: Metabolic equivalent of task angir (kcal x kg-1 x h-1)
 		double met = 0;
 		double speedmph = speed * MS;
+		double tid = secs;
 		
 		if(speedmph < 10) {
 			met = 4.0;
@@ -156,22 +157,30 @@ public class GPSComputer {
 			met = 16.0;
 		}
 		
-		kcal = met * weight * (secs/3600);
+		kcal = (double) met * (double) weight * (secs/3600.0);
 		
 		return kcal;
 
 	}
 
 	public double totalKcal(double weight) {
-
+		
 		double totalkcal = 0;
-		int tid = totalTime();
-		double distance = totalDistance();
-		double speed = distance/tid;
+		double[] speeds = speeds();
+		int[] tider = new int[speeds.length];
 		
-		totalkcal = weight * (tid/3600) * ((distance/tid) * MS);
+		GPSPoint[] gpspoints = this.gpspoints;
 		
-		totalkcal = kcal(weight, tid, speed);
+		for (int i = 1; i < gpspoints.length; i++) {
+
+			int tid = gpspoints[i].getTime();
+			tider[i-1] =(tid - gpspoints[i - 1].getTime());
+		}
+		
+		for(int i = 0; i < tider.length; i++) {
+			
+			totalkcal += (double)kcal(weight, tider[i], speeds[i]);
+		}
 		
 		return totalkcal;
 	}
@@ -179,15 +188,15 @@ public class GPSComputer {
 	private static double WEIGHT = 80.0;
 
 	public void displayStatistics() {
-
+		
 		System.out.println("==============================================");
-
-		// TODO - START
-
-		throw new UnsupportedOperationException(TODO.method());
-
-		// TODO - SLUTT
-
+		System.out.println("Total time     :" + GPSUtils.formatTime(totalTime()));
+		System.out.println("Total distance :" + GPSUtils.formatDouble(totalDistance()) + " km");
+		System.out.println("Total elevation:" + GPSUtils.formatDouble(totalElevation()) + " m");
+		System.out.println("Max Speed      :" + GPSUtils.formatDouble(maxSpeed()) + " km/t");
+		System.out.println("Average Speed  :" + GPSUtils.formatDouble(averageSpeed()) + " km/t");
+		System.out.println("Energy         :" + GPSUtils.formatDouble(totalKcal(WEIGHT)) + " kcal");
+		System.out.println("==============================================");
 	}
 
 }
