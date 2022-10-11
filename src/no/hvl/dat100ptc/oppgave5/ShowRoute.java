@@ -65,14 +65,9 @@ public class ShowRoute extends EasyGraphics {
 
 	public void showRouteMap(int ybase) {
 		
-		System.out.println(xstep());
-		System.out.println(ystep());
+		System.out.println((int)xstep());
+		System.out.println((int)ystep());
 		
-		// for(GPSPoint i: gpspoints) {
-			
-		//	System.out.println(i);
-			
-		//}
 
 	}
 
@@ -85,12 +80,12 @@ public class ShowRoute extends EasyGraphics {
 		setFont("Courier",12);
 		String[] info = new String[6];
 		
-		info[0] = "Total time          :" + GPSUtils.formatTime(gpscomputer.totalTime());
+		info[0] = "Total time         :" + GPSUtils.formatTime(gpscomputer.totalTime());
 		info[1] = "Total distance  :" + GPSUtils.formatDouble(gpscomputer.totalDistance()) + " km";
 		info[2] = "Total elevation  :" + GPSUtils.formatDouble(gpscomputer.totalElevation()) + " m";
-		info[3] = "Max speed         :" + GPSUtils.formatDouble(gpscomputer.maxSpeed()) + " km/t";
+		info[3] = "Max speed        :" + GPSUtils.formatDouble(gpscomputer.maxSpeed()) + " km/t";
 		info[4] = "Average speed :" + GPSUtils.formatDouble(gpscomputer.averageSpeed()) + " km/t";
-		info[5] = "Energy                :" + GPSUtils.formatDouble(gpscomputer.totalKcal(80.0)) + " kcal";
+		info[5] = "Energy              :" + GPSUtils.formatDouble(gpscomputer.totalKcal(80.0)) + " kcal";
 		
 		for(int i = 0; i < info.length; i++) {
 			yPos = yPos + TEXTDISTANCE;

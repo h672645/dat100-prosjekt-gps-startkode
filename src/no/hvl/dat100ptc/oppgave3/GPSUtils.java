@@ -41,23 +41,23 @@ public class GPSUtils {
 	public static double[] getLatitudes(GPSPoint[] gpspoints) {
 
 		double[] latTab = new double[gpspoints.length];
-		
-		for(int i = 0; i < gpspoints.length; i++) {
-			
+
+		for (int i = 0; i < gpspoints.length; i++) {
+
 			latTab[i] = (gpspoints[i].getLatitude());
-			
+
 		}
-		
+
 		return latTab;
-		
+
 	}
 
 	public static double[] getLongitudes(GPSPoint[] gpspoints) {
 
 		double[] longTab = new double[gpspoints.length];
-		
-		for(int i = 0; i < gpspoints.length; i++) {
-			
+
+		for (int i = 0; i < gpspoints.length; i++) {
+
 			longTab[i] = (gpspoints[i].getLongitude());
 		}
 		return longTab;
@@ -75,12 +75,12 @@ public class GPSUtils {
 		latitude1 = Math.toRadians(gpspoint1.getLatitude());
 		longitude2 = Math.toRadians(gpspoint2.getLongitude());
 		latitude2 = Math.toRadians(gpspoint2.getLatitude());
-		
-		a = Math.pow((Math.sin(latitude2-latitude1)/2),2) + Math.cos(latitude1) * Math.cos(latitude2) 
-				* Math.pow((Math.sin(longitude2-longitude1)/2),2);
-		
-		c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-		
+
+		a = Math.pow((Math.sin(latitude2 - latitude1) / 2), 2)
+				+ Math.cos(latitude1) * Math.cos(latitude2) * Math.pow((Math.sin(longitude2 - longitude1) / 2), 2);
+
+		c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
 		d = R * c;
 		return d;
 
@@ -93,7 +93,7 @@ public class GPSUtils {
 		double distance = distance(gpspoint1, gpspoint2);
 		secs = (gpspoint2.getTime() - gpspoint1.getTime());
 		speed = distance / secs * 3.6;
-		
+
 		return speed;
 	}
 
@@ -105,29 +105,29 @@ public class GPSUtils {
 		int timer = (secs / 3600);
 		int minutter = (secs % 3600) / 60;
 		int sekunder = (secs % 3600) % 60;
-		
-		if(timer < 10) {
-			timestr = "  0"+timer;
+
+		if (timer < 10) {
+			timestr = "  0" + timer;
 		} else {
 			timestr = "  " + timer;
 		}
-		
+
 		timestr += ":";
-		
-		if(minutter < 10) {
-			timestr += "0"+minutter;
+
+		if (minutter < 10) {
+			timestr += "0" + minutter;
 		} else {
 			timestr += "" + minutter;
 		}
-		
+
 		timestr += ":";
-		
-		if(sekunder < 10) {
-			timestr += "0"+sekunder;
+
+		if (sekunder < 10) {
+			timestr += "0" + sekunder;
 		} else {
 			timestr += "" + sekunder;
 		}
-		
+		System.out.print(timestr);
 		return timestr;
 
 	}
@@ -135,31 +135,27 @@ public class GPSUtils {
 	private static int TEXTWIDTH = 10;
 
 	public static String formatDouble(double d) {
-		
-		double avrunding = d + 0.005;
-		String str = ""; 
-		String tallTxt = "" + avrunding;
-		
+
+		double avrundetTall = Math.round(d * 100d) / 100d;
+		String str = "";
+
 		int antallPositiveTall = 0;
-		int antallSiffer = 1;
-		int tellar = (int)avrunding;
-		
-		while(tellar%10 != 0) {
+		int tellar = (int) avrundetTall;
+
+		while (tellar % 10 != 0) {
 			tellar = tellar / 10;
-			antallPositiveTall = antallSiffer;
-			antallSiffer++;
+			antallPositiveTall++;
 		}
 
-		int posisjonerLedig = antallPositiveTall + 3;
-		tallTxt = tallTxt.substring(0, posisjonerLedig);
-		int grense = TEXTWIDTH - posisjonerLedig;
-		
-		for(int i = 0; i < grense; i++) {
+		int toDesimaler = 2;
+		int punktum = 1;
+		int ubruktPlass = TEXTWIDTH - (antallPositiveTall + punktum + toDesimaler);
+
+		for (int i = 0; i < ubruktPlass; i++) {
 			str += " ";
 		}
-		
-		
-		str += tallTxt;
+
+		str += avrundetTall;
 		return str;
 	}
 }
