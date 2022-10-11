@@ -127,7 +127,6 @@ public class GPSUtils {
 		} else {
 			timestr += "" + sekunder;
 		}
-		System.out.print(timestr);
 		return timestr;
 
 	}

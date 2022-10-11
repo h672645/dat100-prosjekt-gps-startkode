@@ -16,7 +16,7 @@ public class ShowRoute extends EasyGraphics {
 
 	private GPSPoint[] gpspoints;
 	private GPSComputer gpscomputer;
-	
+
 	public ShowRoute() {
 
 		String filename = JOptionPane.showInputDialog("GPS data filnavn: ");
@@ -35,7 +35,7 @@ public class ShowRoute extends EasyGraphics {
 		makeWindow("Route", MAPXSIZE + 2 * MARGIN, MAPYSIZE + 2 * MARGIN);
 
 		showRouteMap(MARGIN + MAPYSIZE);
-		
+
 		showStatistics();
 	}
 
@@ -45,30 +45,31 @@ public class ShowRoute extends EasyGraphics {
 		double maxlon = GPSUtils.findMax(GPSUtils.getLongitudes(gpspoints));
 		double minlon = GPSUtils.findMin(GPSUtils.getLongitudes(gpspoints));
 
-		double xstep = MAPXSIZE / (Math.abs(maxlon - minlon)); 
-		
+		double xstep = MAPXSIZE / (Math.abs(maxlon - minlon));
+
 		return xstep;
 	}
 
 	// antall y-pixels per breddegrad
 	public double ystep() {
-	
+
 		double ystep;
-		
+
 		double maxlat = GPSUtils.findMax(GPSUtils.getLatitudes(gpspoints));
 		double minlat = GPSUtils.findMin(GPSUtils.getLatitudes(gpspoints));
-		
-		
-		ystep = MAPYSIZE / (Math.abs(maxlat-minlat));
+
+		ystep = MAPYSIZE / (Math.abs(maxlat - minlat));
 		return ystep;
 	}
 
 	public void showRouteMap(int ybase) {
-		
-		System.out.println((int)xstep());
-		System.out.println((int)ystep());
-		
 
+		int xPos = (int) (xstep() + 0.5);
+		int yPos = (int) (ystep() + 0.5);
+		System.out.println(xPos + " " + yPos);
+	
+		
+		
 	}
 
 	public void showStatistics() {
@@ -76,24 +77,23 @@ public class ShowRoute extends EasyGraphics {
 		int TEXTDISTANCE = 20;
 		int yPos = 0;
 
-		setColor(0,0,0);
-		setFont("Courier",12);
+		setColor(0, 0, 0);
+		setFont("Courier", 12);
 		String[] info = new String[6];
-		
+
 		info[0] = "Total time         :" + GPSUtils.formatTime(gpscomputer.totalTime());
 		info[1] = "Total distance  :" + GPSUtils.formatDouble(gpscomputer.totalDistance()) + " km";
 		info[2] = "Total elevation  :" + GPSUtils.formatDouble(gpscomputer.totalElevation()) + " m";
 		info[3] = "Max speed        :" + GPSUtils.formatDouble(gpscomputer.maxSpeed()) + " km/t";
 		info[4] = "Average speed :" + GPSUtils.formatDouble(gpscomputer.averageSpeed()) + " km/t";
 		info[5] = "Energy              :" + GPSUtils.formatDouble(gpscomputer.totalKcal(80.0)) + " kcal";
-		
-		for(int i = 0; i < info.length; i++) {
+
+		for (int i = 0; i < info.length; i++) {
 			yPos = yPos + TEXTDISTANCE;
 			drawString(info[i], MARGIN, yPos);
-			
+
 		}
-		
-		
+
 	}
 
 }
