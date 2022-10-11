@@ -112,7 +112,7 @@ public class GPSUtils {
 			timestr = "  " + timer;
 		}
 
-		timestr += ":";
+		timestr += TIMESEP;
 
 		if (minutter < 10) {
 			timestr += "0" + minutter;

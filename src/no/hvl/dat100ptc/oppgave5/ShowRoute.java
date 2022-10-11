@@ -64,10 +64,27 @@ public class ShowRoute extends EasyGraphics {
 
 	public void showRouteMap(int ybase) {
 
-		int xPos = (int) (xstep() + 0.5);
-		int yPos = (int) (ystep() + 0.5);
-		System.out.println(xPos + " " + yPos);
-	
+		int temppos = 200;
+		int xTellar = 0;
+		double[] x = new double[gpspoints.length];
+		double[] y = new double[gpspoints.length];
+		double xStep = xstep();
+		double yStep = ystep();
+		System.out.println(xStep + "  " + yStep); 
+		
+		for(int i = 0; i < x.length; i++) {
+			
+			x[i] = (int)(MAPXSIZE/gpspoints[i].getLongitude());
+			y[i] = (int)(MAPYSIZE/gpspoints[i].getLatitude());
+			System.out.println(x[i] + "  " + y[i]);
+		}
+		
+		for(int i = 0; i < gpspoints.length; i++) {
+			
+			setColor(0,0,0);
+			//drawLine(MARGIN + x[i], ybase + y[i], MARGIN + x[i]+ xTellar, ybase-(y[i]));
+			xTellar += 4;
+		}
 		
 		
 	}
