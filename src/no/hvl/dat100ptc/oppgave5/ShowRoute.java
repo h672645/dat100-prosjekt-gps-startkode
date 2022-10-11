@@ -47,6 +47,7 @@ public class ShowRoute extends EasyGraphics {
 
 		double xstep = MAPXSIZE / (Math.abs(maxlon - minlon));
 
+		
 		return xstep;
 	}
 
@@ -68,23 +69,24 @@ public class ShowRoute extends EasyGraphics {
 		int xTellar = 0;
 		double[] x = new double[gpspoints.length];
 		double[] y = new double[gpspoints.length];
-		double xStep = xstep();
+		double xStep = xstep() * gpspoints[0].getLongitude()
+				;
 		double yStep = ystep();
 		System.out.println(xStep + "  " + yStep); 
 		
 		for(int i = 0; i < x.length; i++) {
 			
-			x[i] = (int)(MAPXSIZE/gpspoints[i].getLongitude());
-			y[i] = (int)(MAPYSIZE/gpspoints[i].getLatitude());
+			x[i] = (gpspoints[i].getLongitude());
+			y[i] = (gpspoints[i].getLatitude());
 			System.out.println(x[i] + "  " + y[i]);
 		}
 		
-		for(int i = 0; i < gpspoints.length; i++) {
-			
-			setColor(0,0,0);
-			//drawLine(MARGIN + x[i], ybase + y[i], MARGIN + x[i]+ xTellar, ybase-(y[i]));
-			xTellar += 4;
-		}
+//		for(int i = 0; i < gpspoints.length; i++) {
+//			
+//			setColor(0,0,0);
+//			fillCircle(MARGIN + xTellar, 10, 1	);
+//			xTellar += 5;
+//		}
 		
 		
 	}

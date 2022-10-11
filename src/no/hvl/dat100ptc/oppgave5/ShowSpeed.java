@@ -1,4 +1,4 @@
-package no.hvl.dat100ptc.oppgave5;
+4package no.hvl.dat100ptc.oppgave5;
 
 import javax.swing.JOptionPane;
 
