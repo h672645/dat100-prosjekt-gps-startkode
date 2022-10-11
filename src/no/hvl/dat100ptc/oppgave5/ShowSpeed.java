@@ -1,4 +1,4 @@
-4package no.hvl.dat100ptc.oppgave5;
+package no.hvl.dat100ptc.oppgave5;
 
 import javax.swing.JOptionPane;
 
@@ -51,7 +51,7 @@ public class ShowSpeed extends EasyGraphics {
 		int speed = 0;
 		int speedTellar = 0;
 		//skalering på y-aksen   1,2,3
-		int s = 3;
+		int s = 1;
 
 		for(int i = 0; i < speeds.length; i++) {
 			xTellar += 2;

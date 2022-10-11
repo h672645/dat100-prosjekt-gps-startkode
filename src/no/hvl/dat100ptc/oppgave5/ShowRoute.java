@@ -39,7 +39,7 @@ public class ShowRoute extends EasyGraphics {
 		showStatistics();
 	}
 
-	// antall x-pixels per lengdegrad
+	// antall x-pixels per lengdegrad    # of pixels per longitude
 	public double xstep() {
 
 		double maxlon = GPSUtils.findMax(GPSUtils.getLongitudes(gpspoints));
@@ -51,7 +51,7 @@ public class ShowRoute extends EasyGraphics {
 		return xstep;
 	}
 
-	// antall y-pixels per breddegrad
+	// antall y-pixels per breddegrad    # of pixels per latitude
 	public double ystep() {
 
 		double ystep;
@@ -64,29 +64,28 @@ public class ShowRoute extends EasyGraphics {
 	}
 
 	public void showRouteMap(int ybase) {
-
-		int temppos = 200;
+		
 		int xTellar = 0;
 		double[] x = new double[gpspoints.length];
 		double[] y = new double[gpspoints.length];
-		double xStep = xstep() * gpspoints[0].getLongitude()
-				;
+		double xStep = xstep();
 		double yStep = ystep();
-		System.out.println(xStep + "  " + yStep); 
+		System.out.println("xStep: " + xStep + "  " + "yStep: " + yStep); 
 		
 		for(int i = 0; i < x.length; i++) {
 			
 			x[i] = (gpspoints[i].getLongitude());
 			y[i] = (gpspoints[i].getLatitude());
-			System.out.println(x[i] + "  " + y[i]);
+			System.out.println("Longitude: " + x[i] + "  " + "Latitude: " + y[i]);
 		}
 		
-//		for(int i = 0; i < gpspoints.length; i++) {
-//			
-//			setColor(0,0,0);
-//			fillCircle(MARGIN + xTellar, 10, 1	);
-//			xTellar += 5;
-//		}
+		for(int i = 0; i < gpspoints.length; i++) {
+			
+			int tempY = (int)y[i];
+			setColor(0,0,0);
+			fillCircle(MARGIN + xTellar, tempY, 1	);
+			xTellar += 4;
+		}
 		
 		
 	}
@@ -100,11 +99,12 @@ public class ShowRoute extends EasyGraphics {
 		setFont("Courier", 12);
 		String[] info = new String[6];
 
-		info[0] = "Total time         :" + GPSUtils.formatTime(gpscomputer.totalTime());
-		info[1] = "Total distance  :" + GPSUtils.formatDouble(gpscomputer.totalDistance()) + " km";
-		info[2] = "Total elevation  :" + GPSUtils.formatDouble(gpscomputer.totalElevation()) + " m";
-		info[3] = "Max speed        :" + GPSUtils.formatDouble(gpscomputer.maxSpeed()) + " km/t";
-		info[4] = "Average speed :" + GPSUtils.formatDouble(gpscomputer.averageSpeed()) + " km/t";
+		
+		info[0] = "Total time        :" + GPSUtils.formatTime(gpscomputer.totalTime());
+		info[1] = "Total distance :" + GPSUtils.formatDouble(gpscomputer.totalDistance()) + " km";
+		info[2] = "Total elevation :" + GPSUtils.formatDouble(gpscomputer.totalElevation()) + " m";
+		info[3] = "Max speed       :" + GPSUtils.formatDouble(gpscomputer.maxSpeed()) + " km/t";
+		info[4] = "Average speed:" + GPSUtils.formatDouble(gpscomputer.averageSpeed()) + " km/t";
 		info[5] = "Energy              :" + GPSUtils.formatDouble(gpscomputer.totalKcal(80.0)) + " kcal";
 
 		for (int i = 0; i < info.length; i++) {
@@ -112,6 +112,7 @@ public class ShowRoute extends EasyGraphics {
 			drawString(info[i], MARGIN, yPos);
 
 		}
+		
 
 	}
 
