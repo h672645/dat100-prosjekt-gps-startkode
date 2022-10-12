@@ -65,28 +65,34 @@ public class ShowRoute extends EasyGraphics {
 
 	public void showRouteMap(int ybase) {
 		
+		//just tracking the #of Data points that spans across the window, used 4 for spacing to fit better
 		int xTellar = 0;
+		
 		double[] x = new double[gpspoints.length];
 		double[] y = new double[gpspoints.length];
 		double xStep = xstep();
 		double yStep = ystep();
+		
+		//just to track values
 		System.out.println("xStep: " + xStep + "  " + "yStep: " + yStep); 
 		
 		for(int i = 0; i < x.length; i++) {
 			
-			x[i] = (gpspoints[i].getLongitude());
-			y[i] = (gpspoints[i].getLatitude());
-			System.out.println("Longitude: " + x[i] + "  " + "Latitude: " + y[i]);
+			x[i] = gpspoints[i].getLongitude() * (MAPXSIZE/gpspoints.length);
+			y[i] = gpspoints[i].getLatitude() * (MAPYSIZE/gpspoints.length);
+			
+			//just to keep track of values while testing
+			System.out.println(x[i] + "  " + y[i]);
 		}
 		
 		for(int i = 0; i < gpspoints.length; i++) {
 			
-			int tempY = (int)y[i];
+			int tempY;
+			int tempX;
 			setColor(0,0,0);
-			fillCircle(MARGIN + xTellar, tempY, 1	);
+			fillCircle(/*TBD */ 40+xTellar, /*TBD */ 40, 1);
 			xTellar += 4;
 		}
-		
 		
 	}
 
