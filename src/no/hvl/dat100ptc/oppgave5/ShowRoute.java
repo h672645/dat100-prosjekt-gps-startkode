@@ -11,7 +11,7 @@ import no.hvl.dat100ptc.oppgave4.GPSComputer;
 public class ShowRoute extends EasyGraphics {
 
 	private static int MARGIN = 50;
-	private static int MAPXSIZE = 800;
+	private static int MAPXSIZE = 1000;
 	private static int MAPYSIZE = 800;
 
 	private GPSPoint[] gpspoints;
@@ -87,7 +87,7 @@ public class ShowRoute extends EasyGraphics {
 		}
 		
 		setColor(0,0,255);
-		int a = circle((int) (x[0] + 0.5), ybase - (int) (y[0] + 0.5),3);
+//		int a = circle((int) (x[0] + 0.5), ybase - (int) (y[0] + 0.5),3);
 		int speedTellar = 1;
 		for (int i = 0; i < gpspoints.length; i++) {
 			int tempY = (int) (y[i] + 0.5);
@@ -100,23 +100,23 @@ public class ShowRoute extends EasyGraphics {
 				fillCircle(MARGIN + tempX, ybase - tempY, 2);
 			}
 			
-			moveCircle(a, MARGIN + tempX , ybase - tempY);
+//			moveCircle(a, MARGIN + tempX , ybase - tempY);
 
 			if (i > 0) {
 				int tempYForige = (int) (y[i - 1] + 0.5);
 				int tempXForige = (int) (x[i - 1] + 0.5);
-
-				if (gpspoints[i].getElevation() < gpspoints[i - 1].getElevation()) {
-					setColor(255, 0, 0);
-				} else {
-					setColor(0, 255, 0);
-				}
-				
+//
+//				if (gpspoints[i].getElevation() < gpspoints[i - 1].getElevation()) {
+//					setColor(255, 0, 0);
+//				} else {
+//					setColor(0, 255, 0);
+//				}
+//				
 				drawLine(MARGIN + tempX, ybase - tempY, MARGIN + tempXForige, ybase - tempYForige);
-				
-				int speedGraph = (int)(speeds[i-1]);
-				drawLine(650 + xTellar, 75, 650 + xTellar, 75-speedGraph );
-				xTellar += 1;
+//				
+//				int speedGraph = (int)(speeds[i-1]);
+//				drawLine(650 + xTellar, 75, 650 + xTellar, 75-speedGraph );
+//				xTellar += 1;
 			}
 			
 		}
@@ -144,7 +144,6 @@ public class ShowRoute extends EasyGraphics {
 			drawString(info[i], MARGIN, yPos);
 
 		}
-
 	}
 
 	public int circle(int centerX, int centerY, int radius) {

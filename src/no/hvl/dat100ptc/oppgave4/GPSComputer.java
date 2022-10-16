@@ -81,15 +81,15 @@ public class GPSComputer {
 	public double[] speeds() {
 
 		GPSPoint[] gpspoints = this.gpspoints;
-		double[] speed = new double[gpspoints.length-1];
-		
+		double[] speed = new double[gpspoints.length - 1];
+
 		for (int i = 1; i < gpspoints.length; i++) {
-			
-			double hastighet = GPSUtils.speed(gpspoints[i-1], gpspoints[i]);
-			
-			speed[i-1] = hastighet;
+
+			double hastighet = GPSUtils.speed(gpspoints[i - 1], gpspoints[i]);
+
+			speed[i - 1] = hastighet;
 		}
-				
+
 		return speed;
 	}
 
@@ -97,16 +97,16 @@ public class GPSComputer {
 
 		GPSPoint[] gpspoints = this.gpspoints;
 		double maxSpeed = 0;
-		
+
 		for (int i = 1; i < gpspoints.length; i++) {
-			
-			double hastighet = GPSUtils.speed(gpspoints[i-1], gpspoints[i]);
-			if(hastighet > maxSpeed) {
+
+			double hastighet = GPSUtils.speed(gpspoints[i - 1], gpspoints[i]);
+			if (hastighet > maxSpeed) {
 				maxSpeed = hastighet;
 			}
-			
+
 		}
-		
+
 		return maxSpeed;
 
 	}
@@ -114,7 +114,7 @@ public class GPSComputer {
 	public double averageSpeed() {
 
 		double average = 0;
-		
+
 		average = totalDistance() / totalTime() * 3.6;
 
 		return average;
@@ -142,53 +142,53 @@ public class GPSComputer {
 		double met = 0;
 		double speedmph = speed * MS;
 		double tid = secs;
-		
-		if(speedmph < 10) {
+
+		if (speedmph < 10) {
 			met = 4.0;
-		} else if(speedmph >= 10 && speedmph <= 12) {
+		} else if (speedmph >= 10 && speedmph <= 12) {
 			met = 6.0;
-		} else if(speedmph >= 12 && speedmph <=14) {
+		} else if (speedmph >= 12 && speedmph <= 14) {
 			met = 8.0;
-		} else if(speedmph >= 14 && speedmph <=16) {
+		} else if (speedmph >= 14 && speedmph <= 16) {
 			met = 10.0;
-		} else if(speedmph >= 16 && speedmph <=20) {
+		} else if (speedmph >= 16 && speedmph <= 20) {
 			met = 12.0;
-		} else if(speedmph >= 20) {
+		} else if (speedmph >= 20) {
 			met = 16.0;
 		}
-		
-		kcal = (double) met * (double) weight * (secs/3600.0);
-		
+
+		kcal = (double) met * (double) weight * (secs / 3600.0);
+
 		return kcal;
 
 	}
 
 	public double totalKcal(double weight) {
-		
+
 		double totalkcal = 0;
 		double[] speeds = speeds();
 		int[] tider = new int[speeds.length];
-		
+
 		GPSPoint[] gpspoints = this.gpspoints;
-		
+
 		for (int i = 1; i < gpspoints.length; i++) {
 
 			int tid = gpspoints[i].getTime();
-			tider[i-1] =(tid - gpspoints[i - 1].getTime());
+			tider[i - 1] = (tid - gpspoints[i - 1].getTime());
 		}
-		
-		for(int i = 0; i < tider.length; i++) {
-			
-			totalkcal += (double)kcal(weight, tider[i], speeds[i]);
+
+		for (int i = 0; i < tider.length; i++) {
+
+			totalkcal += (double) kcal(weight, tider[i], speeds[i]);
 		}
-		
+
 		return totalkcal;
 	}
 
 	private static double WEIGHT = 80.0;
 
 	public void displayStatistics() {
-		
+
 		System.out.println("==============================================");
 		System.out.println("Total time     :" + GPSUtils.formatTime(totalTime()));
 		System.out.println("Total distance :" + GPSUtils.formatDouble(totalDistance()) + " km");
@@ -197,6 +197,45 @@ public class GPSComputer {
 		System.out.println("Average Speed  :" + GPSUtils.formatDouble(averageSpeed()) + " km/t");
 		System.out.println("Energy         :" + GPSUtils.formatDouble(totalKcal(WEIGHT)) + " kcal");
 		System.out.println("==============================================");
+	}
+
+	public double[] climbs() {
+
+		double[] hoyder = new double[gpspoints.length];
+		double[] distance = new double[gpspoints.length - 1];
+		double[] climbs = new double[gpspoints.length - 1];
+
+		for (int i = 1; i < climbs.length; i++) {
+
+			hoyder[i] = gpspoints[i].getElevation() - gpspoints[i - 1].getElevation();
+			distance[i] = GPSUtils.distance(gpspoints[i - 1], gpspoints[i]);
+			System.out.println("høydeforskjell" + hoyder[i - 1]);
+			System.out.println("distance" + distance[i - 1]);
+
+			double hoyderPow = Math.pow(hoyder[i], 2);
+			double distancePow = Math.pow(distance[i], 2);
+			double hyp = Math.sqrt(hoyderPow + distancePow);
+
+			climbs[i - 1] = (Math.asin(hoyder[i] / hyp)) * 100;
+			System.out.println(climbs[i - 1]);
+		}
+
+		return climbs;
+		
+	}
+
+	public double maxClimb() {
+
+		double max = 0;
+		double[] maxClimb = climbs();
+		
+		for(double i: maxClimb) {
+			if( i > max) {
+				max = i;
+			}
+		}
+	
+		return max;
 	}
 
 }
