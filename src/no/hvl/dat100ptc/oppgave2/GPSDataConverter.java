@@ -1,4 +1,4 @@
-package no.hvl.dat100ptc.oppgave2;
+ 	package no.hvl.dat100ptc.oppgave2;
 
 import no.hvl.dat100ptc.TODO;
 import no.hvl.dat100ptc.oppgave1.GPSPoint;
@@ -17,9 +17,9 @@ public class GPSDataConverter {
 		int secs;
 		int hr, min, sec;
 		
-		hr = Integer.parseInt((timestr.substring(11,13)));
-		min = Integer.parseInt((timestr.substring(14,16)));
-		sec = Integer.parseInt((timestr.substring(17,19)));
+		hr = Integer.parseInt((timestr.substring(TIME_STARTINDEX,TIME_STARTINDEX+2)));
+		min = Integer.parseInt((timestr.substring(TIME_STARTINDEX+3,TIME_STARTINDEX+5)));
+		sec = Integer.parseInt((timestr.substring(TIME_STARTINDEX+6,TIME_STARTINDEX+8)));
 		
 		secs = (3600*hr)+(60*min)+sec;
 		
