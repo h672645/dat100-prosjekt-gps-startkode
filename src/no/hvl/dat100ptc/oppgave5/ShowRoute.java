@@ -86,8 +86,6 @@ public class ShowRoute extends EasyGraphics {
 
 		}
 		
-		setSpeed(10);
-		
 		setColor(0, 0, 255);
 		int a = circle((int) (x[0] + 0.5), ybase - (int) (y[0] + 0.5),3);
 		int speedTellar = 1;
@@ -153,16 +151,6 @@ public class ShowRoute extends EasyGraphics {
 		int circle = fillCircle(MARGIN + centerX, centerY, radius);
 
 		return circle;
-	}
-
-	private static int input(String message) {
-		int antall = 0;
-		
-		
-		String innTxt = showInputDialog(message);
-		antall = Integer.parseInt(innTxt);
-		
-		return antall;
 	}
 	
 }
