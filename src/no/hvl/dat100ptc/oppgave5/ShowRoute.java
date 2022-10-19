@@ -37,9 +37,10 @@ public class ShowRoute extends EasyGraphics {
 
 		makeWindow("Route", MAPXSIZE + 2 * MARGIN, MAPYSIZE + 2 * MARGIN);
 
+		showStatistics();
+		
 		showRouteMap(MARGIN + MAPYSIZE);
 
-		showStatistics();
 	}
 
 	// antall x-pixels per lengdegrad # of pixels per longitude
@@ -86,16 +87,19 @@ public class ShowRoute extends EasyGraphics {
 		
 		setColor(0, 0, 255);
 		int a = circle((int) (x[0] + 0.5), ybase - (int) (y[0] + 0.5),3);
+		double hoyde = 0;
 		
 		for (int i = 0; i < gpspoints.length; i++) {
 			int tempY = (int) (y[i] + 0.5);
 			int tempX = (int) (x[i] + 0.5);
 			
-			if (gpspoints[i].getElevation() < gpspoints[i + 1].getElevation() && i < gpspoints.length-1) {
+			if (gpspoints[i].getElevation() > hoyde)  {
 				setColor(255, 0, 0);
 			} else {
 				setColor(0, 255, 0);
 			}
+			
+			hoyde = gpspoints[i].getElevation(); 
 			
 			fillCircle(MARGIN + tempX, ybase - tempY, 2);
 	
@@ -137,6 +141,8 @@ public class ShowRoute extends EasyGraphics {
 			drawString(info[i], MARGIN, yPos);
 
 		}
+		
+		drawString("Fart", 620, 65);
 	}
 
 	public int circle(int centerX, int centerY, int radius) {
