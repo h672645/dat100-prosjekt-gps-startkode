@@ -10,7 +10,7 @@ public class GPSData {
 
 	public GPSData(int n) {
 
-		this.gpspoints = new GPSPoint[n];
+		gpspoints = new GPSPoint[n];
 		antall = 0;
 	}
 

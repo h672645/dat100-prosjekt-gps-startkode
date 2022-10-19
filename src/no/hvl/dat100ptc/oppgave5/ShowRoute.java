@@ -34,9 +34,10 @@ public class ShowRoute extends EasyGraphics {
 
 		makeWindow("Route", MAPXSIZE + 2 * MARGIN, MAPYSIZE + 2 * MARGIN);
 
+		showStatistics();
+		
 		showRouteMap(MARGIN + MAPYSIZE);
 
-		showStatistics();
 	}
 
 	// antall x-pixels per lengdegrad # of pixels per longitude
@@ -67,9 +68,6 @@ public class ShowRoute extends EasyGraphics {
 		
 		
 		double[] speeds = gpscomputer.speeds();
-		System.out.println(speeds.length);
-		System.out.println(gpspoints.length);
-		
 		
 		double minlon = GPSUtils.findMin(GPSUtils.getLongitudes(gpspoints));
 		double minlat = GPSUtils.findMin(GPSUtils.getLatitudes(gpspoints));
@@ -88,7 +86,7 @@ public class ShowRoute extends EasyGraphics {
 		
 		setColor(0,0,255);
 		int a = circle((int) (x[0] + 0.5), ybase - (int) (y[0] + 0.5),3);
-		int speedTellar = 1;
+		
 		for (int i = 0; i < gpspoints.length; i++) {
 			int tempY = (int) (y[i] + 0.5);
 			int tempX = (int) (x[i] + 0.5);
@@ -106,7 +104,7 @@ public class ShowRoute extends EasyGraphics {
 				int tempYForige = (int) (y[i - 1] + 0.5);
 				int tempXForige = (int) (x[i - 1] + 0.5);
 
-				if (gpspoints[i].getElevation() < gpspoints[i - 1].getElevation()) {
+				if (gpspoints[i].getElevation() > gpspoints[i - 1].getElevation()) {
 					setColor(255, 0, 0);
 				} else {
 					setColor(0, 255, 0);
