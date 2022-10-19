@@ -141,14 +141,8 @@ public class GPSComputer {
 		// MET: Metabolic equivalent of task angir (kcal x kg-1 x h-1)
 		double met = 0;
 		double speedmph = speed * MS;
-<<<<<<< HEAD
-		
-		if(speedmph < 10) {
-=======
-		double tid = secs;
 
 		if (speedmph < 10) {
->>>>>>> b3a1f15040c5525d96ed54bb4d5f29882e74f410
 			met = 4.0;
 		} else if (speedmph >= 10 && speedmph <= 12) {
 			met = 6.0;

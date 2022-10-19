@@ -37,10 +37,9 @@ public class ShowRoute extends EasyGraphics {
 
 		makeWindow("Route", MAPXSIZE + 2 * MARGIN, MAPYSIZE + 2 * MARGIN);
 
-		showStatistics();
-		
 		showRouteMap(MARGIN + MAPYSIZE);
 
+		showStatistics();
 	}
 
 	// antall x-pixels per lengdegrad # of pixels per longitude
@@ -69,13 +68,7 @@ public class ShowRoute extends EasyGraphics {
 	public void showRouteMap(int ybase) {
 
 		double[] speeds = gpscomputer.speeds();
-<<<<<<< HEAD
-		
-=======
-		System.out.println(speeds.length);
-		System.out.println(gpspoints.length);
 
->>>>>>> b3a1f15040c5525d96ed54bb4d5f29882e74f410
 		double minlon = GPSUtils.findMin(GPSUtils.getLongitudes(gpspoints));
 		double minlat = GPSUtils.findMin(GPSUtils.getLatitudes(gpspoints));
 		double[] x = new double[gpspoints.length];
@@ -97,28 +90,23 @@ public class ShowRoute extends EasyGraphics {
 		for (int i = 0; i < gpspoints.length; i++) {
 			int tempY = (int) (y[i] + 0.5);
 			int tempX = (int) (x[i] + 0.5);
-			if (x[i] == x[gpspoints.length - 1]) {
-				setColor(0, 0, 255);
-				fillCircle(MARGIN + tempX, ybase - tempY, 5);
+			
+			if (gpspoints[i].getElevation() < gpspoints[i + 1].getElevation() && i < gpspoints.length-1) {
+				setColor(255, 0, 0);
 			} else {
 				setColor(0, 255, 0);
-				fillCircle(MARGIN + tempX, ybase - tempY, 2);
 			}
-
+			
+			fillCircle(MARGIN + tempX, ybase - tempY, 2);
+	
 			moveCircle(a, MARGIN + tempX , ybase - tempY);
 
 			if (i > 0) {
 				int tempYForige = (int) (y[i - 1] + 0.5);
 				int tempXForige = (int) (x[i - 1] + 0.5);
 
-				if (gpspoints[i].getElevation() > gpspoints[i - 1].getElevation()) {
-					setColor(255, 0, 0);
-					drawLine(MARGIN + tempX, ybase - tempY, MARGIN + tempXForige, ybase - tempYForige);
-				} else {
-					setColor(0, 255, 0);
-					drawLine(MARGIN + tempX, ybase - tempY, MARGIN + tempXForige, ybase - tempYForige);
-				}
-
+				drawLine(MARGIN + tempX, ybase - tempY, MARGIN + tempXForige, ybase - tempYForige);
+				
 				int speedGraph = (int) (speeds[i - 1]);
 				drawLine(650 + xTellar, 75, 650 + xTellar, 75 - speedGraph);
 				xTellar += 1;
