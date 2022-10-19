@@ -12,19 +12,19 @@ import javax.swing.JOptionPane;
 
 public class ShowProfile extends EasyGraphics {
 
-	private static final int MARGIN = 50;  // margin on the sides 
-	
+	private static final int MARGIN = 50; // margin on the sides
+
 	private static int MAXBARHEIGHT = 500; // assume no height above 500 meters
-	
+
 	private GPSPoint[] gpspoints;
 
 	public ShowProfile() {
 
 		String filename = JOptionPane.showInputDialog("GPS data filnavn: ");
-		GPSComputer gpscomputer =  new GPSComputer(filename);
+		GPSComputer gpscomputer = new GPSComputer(filename);
 
 		gpspoints = gpscomputer.getGPSPoints();
-		
+
 	}
 
 	public static void main(String[] args) {
@@ -38,27 +38,27 @@ public class ShowProfile extends EasyGraphics {
 		makeWindow("Height profile", 2 * MARGIN + 3 * N, 2 * MARGIN + MAXBARHEIGHT);
 
 		// top margin + height of drawing area
-		showHeightProfile(MARGIN + MAXBARHEIGHT); 
+		showHeightProfile(MARGIN + MAXBARHEIGHT);
 	}
 
 	public void showHeightProfile(int ybase) {
 
 		// ybase indicates the position on the y-axis where the columns should start
-	
-		int x = MARGIN,y = ybase;
+
+		int x = MARGIN, y = ybase;
 		int xTellar = 0;
 
-		for(int i = 0; i < gpspoints.length; i++) {
+		for (int i = 0; i < gpspoints.length; i++) {
 			xTellar += 3;
-			int yGrafPunkt = y-(int)gpspoints[i].getElevation();
-			if(gpspoints[i].getElevation() <= 0) {
+			int yGrafPunkt = y - (int) gpspoints[i].getElevation();
+			if (gpspoints[i].getElevation() <= 0) {
 				yGrafPunkt = y;
 			}
-				
-			drawLine(x+xTellar, y, x+xTellar, yGrafPunkt );
-			
+
+			drawLine(x + xTellar, y, x + xTellar, yGrafPunkt);
+
 		}
-		
+
 	}
 
 }

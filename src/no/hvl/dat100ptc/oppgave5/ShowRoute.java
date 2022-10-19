@@ -1,6 +1,9 @@
 package no.hvl.dat100ptc.oppgave5;
 
+import static javax.swing.JOptionPane.showInputDialog;
+
 import javax.swing.JOptionPane;
+import static java.lang.String.*;
 
 import easygraphics.EasyGraphics;
 import no.hvl.dat100ptc.TODO;
@@ -11,7 +14,7 @@ import no.hvl.dat100ptc.oppgave4.GPSComputer;
 public class ShowRoute extends EasyGraphics {
 
 	private static int MARGIN = 50;
-	private static int MAPXSIZE = 800;
+	private static int MAPXSIZE = 1000;
 	private static int MAPYSIZE = 800;
 
 	private GPSPoint[] gpspoints;
@@ -63,12 +66,16 @@ public class ShowRoute extends EasyGraphics {
 		return ystep;
 	}
 
-	
 	public void showRouteMap(int ybase) {
-		
-		
+
 		double[] speeds = gpscomputer.speeds();
+<<<<<<< HEAD
 		
+=======
+		System.out.println(speeds.length);
+		System.out.println(gpspoints.length);
+
+>>>>>>> b3a1f15040c5525d96ed54bb4d5f29882e74f410
 		double minlon = GPSUtils.findMin(GPSUtils.getLongitudes(gpspoints));
 		double minlat = GPSUtils.findMin(GPSUtils.getLatitudes(gpspoints));
 		double[] x = new double[gpspoints.length];
@@ -84,20 +91,20 @@ public class ShowRoute extends EasyGraphics {
 
 		}
 		
-		setColor(0,0,255);
+		setColor(0, 0, 255);
 		int a = circle((int) (x[0] + 0.5), ybase - (int) (y[0] + 0.5),3);
 		
 		for (int i = 0; i < gpspoints.length; i++) {
 			int tempY = (int) (y[i] + 0.5);
 			int tempX = (int) (x[i] + 0.5);
-			if (x[i] == x[gpspoints.length-1]) {
+			if (x[i] == x[gpspoints.length - 1]) {
 				setColor(0, 0, 255);
 				fillCircle(MARGIN + tempX, ybase - tempY, 5);
 			} else {
 				setColor(0, 255, 0);
 				fillCircle(MARGIN + tempX, ybase - tempY, 2);
 			}
-			
+
 			moveCircle(a, MARGIN + tempX , ybase - tempY);
 
 			if (i > 0) {
@@ -106,19 +113,19 @@ public class ShowRoute extends EasyGraphics {
 
 				if (gpspoints[i].getElevation() > gpspoints[i - 1].getElevation()) {
 					setColor(255, 0, 0);
+					drawLine(MARGIN + tempX, ybase - tempY, MARGIN + tempXForige, ybase - tempYForige);
 				} else {
 					setColor(0, 255, 0);
+					drawLine(MARGIN + tempX, ybase - tempY, MARGIN + tempXForige, ybase - tempYForige);
 				}
-				
-				drawLine(MARGIN + tempX, ybase - tempY, MARGIN + tempXForige, ybase - tempYForige);
-				
-				int speedGraph = (int)(speeds[i-1]);
-				drawLine(650 + xTellar, 75, 650 + xTellar, 75-speedGraph );
+
+				int speedGraph = (int) (speeds[i - 1]);
+				drawLine(650 + xTellar, 75, 650 + xTellar, 75 - speedGraph);
 				xTellar += 1;
 			}
-			
+
 		}
-		
+
 	}
 
 	public void showStatistics() {
@@ -142,14 +149,12 @@ public class ShowRoute extends EasyGraphics {
 			drawString(info[i], MARGIN, yPos);
 
 		}
-
 	}
 
 	public int circle(int centerX, int centerY, int radius) {
 
-		
 		int circle = fillCircle(MARGIN + centerX, centerY, radius);
-		
+
 		return circle;
 	}
 	
