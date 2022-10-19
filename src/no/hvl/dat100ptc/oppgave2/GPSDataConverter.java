@@ -16,9 +16,11 @@ public class GPSDataConverter {
 		
 		int secs;
 		int hr, min, sec;
+		
 		hr = Integer.parseInt((timestr.substring(TIME_STARTINDEX,TIME_STARTINDEX+2)));
 		min = Integer.parseInt((timestr.substring(TIME_STARTINDEX+3,TIME_STARTINDEX+5)));
 		sec = Integer.parseInt((timestr.substring(TIME_STARTINDEX+6,TIME_STARTINDEX+8)));
+		
 		secs = (3600*hr)+(60*min)+sec;
 		
 		return secs;

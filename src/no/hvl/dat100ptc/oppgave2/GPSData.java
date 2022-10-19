@@ -44,7 +44,7 @@ public class GPSData {
 		System.out.println("====== Konvertert GPS Data - START ======");
 
 		for(int i = 0; i < gpspoints.length; i++) {
-			System.out.println(gpspoints[0].toString());
+			System.out.println(gpspoints[i].toString());
 		}
 		
 		System.out.println("====== Konvertert GPS Data - SLUTT ======");
