@@ -112,7 +112,7 @@ public class ShowRoute extends EasyGraphics {
 				drawLine(MARGIN + tempX, ybase - tempY, MARGIN + tempXForige, ybase - tempYForige);
 				
 				int speedGraph = (int) (speeds[i - 1]);
-				drawLine(650 + xTellar, 75, 650 + xTellar, 75 - speedGraph);
+				drawLine(750 + xTellar, 75, 750 + xTellar, 75 - speedGraph);
 				xTellar += 1;
 			}
 
@@ -142,7 +142,7 @@ public class ShowRoute extends EasyGraphics {
 
 		}
 		
-		drawString("Fart", 620, 65);
+		drawString("Fart", 720, 65);
 	}
 
 	public int circle(int centerX, int centerY, int radius) {
